@@ -16,7 +16,6 @@ public class MyPnRTCListener extends PnRTCListener {
     private Activity parentActivity;
     private VideoRenderer.Callbacks localRenderer;
     private VideoRenderer.Callbacks remoteRenderer;
-    IConnectionListener listener;
 
     public interface IConnectionListener {
         void updateConnectionStatus(String status);
@@ -25,11 +24,10 @@ public class MyPnRTCListener extends PnRTCListener {
     }
 
     public MyPnRTCListener(Activity activity, VideoRenderer.Callbacks local,
-        VideoRenderer.Callbacks remote, IConnectionListener listener) {
+        VideoRenderer.Callbacks remote) {
         parentActivity = activity;
         localRenderer = local;
         remoteRenderer = remote;
-        this.listener = listener;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class MyPnRTCListener extends PnRTCListener {
         parentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                listener.updateConnectionStatus(peer.getStatus());
+
             }
         });
     }
@@ -48,7 +46,7 @@ public class MyPnRTCListener extends PnRTCListener {
             @Override
             public void run() {
                 Toast.makeText(parentActivity, "Connected to " + userId, Toast.LENGTH_SHORT).show();
-                listener.connected();
+                //listener.connected();
             }
         });
     }

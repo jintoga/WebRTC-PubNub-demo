@@ -9,4 +9,7 @@ public class Constants {
     // Use Your Pub Key
     public static final String SUB_KEY = "sub-c-1c877896-75a9-11e6-895a-0619f8945a4f";
     // Use Your Sub Key
+
+    public static final String USER_NAME_KEY = "USERNAME";
+    public static final String CALL_NUMBER_KEY = "CALLNUMBER";
 }
