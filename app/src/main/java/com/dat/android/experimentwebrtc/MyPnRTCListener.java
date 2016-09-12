@@ -53,9 +53,12 @@ public class MyPnRTCListener extends PnRTCListener {
 
     @Override
     public void onAddRemoteStream(final MediaStream remoteStream, final PnPeer peer) {
+        super.onAddRemoteStream(remoteStream, peer); // Will log values
         parentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Toast.makeText(parentActivity, "Connected to " + peer.getId(), Toast.LENGTH_SHORT)
+                    .show();
                 try {
                     if (remoteStream.videoTracks.size() > 0) {
                         remoteStream.videoTracks.get(0)

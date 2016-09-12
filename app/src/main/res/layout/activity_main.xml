@@ -29,6 +29,14 @@
             android:hint="Call Number" />
 
         <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:text="Login" />
+
+        <Button
             android:id="@+id/call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -35,14 +35,16 @@ public class MainActivity extends AppCompatActivity implements MyPnRTCListener.I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+    }
 
-        mPubNub = PubNubUtil.initPubNub(this, username.getText().toString(),
-            callnumber.getText().toString());
+    @OnClick(R.id.login)
+    protected void login() {
+        mPubNub = PubNubUtil.initPubNub(this, username.getText().toString());
     }
 
     @OnClick(R.id.call)
     protected void makeCall() {
-        final String callNumStdBy = username.getText().toString() + "-stdby";
+        final String callNumStdBy = callnumber.getText().toString() + "-stdby";
         JSONObject jsonCall = new JSONObject();
         connectionStatus.setVisibility(View.VISIBLE);
         try {
@@ -68,23 +70,19 @@ public class MainActivity extends AppCompatActivity implements MyPnRTCListener.I
         }
     }
 
-   /* private PubNubUtil.SuccessCallback pubNubSuccessCallback = new PubNubUtil.SuccessCallback() {
-        @Override
-        public void didInitiateCall() {
-            pnRTCClient.attachRTCListener(
-                new MyPnRTCListener(MainActivity.this, localRenderer, remoteRenderer,
-                    MainActivity.this));
-            pnRTCClient.attachLocalMediaStream(mediaStream);
-
-            pnRTCClient.listenOn(username.getText().toString());
-            pnRTCClient.setMaxConnections(1);
-            pnRTCClient.connect(callnumber.getText().toString());
-        }
-    };*/
-
     @Override
     public void updateConnectionStatus(String status) {
         connectionStatus.setText(status);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (this.mPubNub == null) {
+            mPubNub = PubNubUtil.initPubNub(this, username.getText().toString());
+        } else {
+            PubNubUtil.subscribeStdBy(mPubNub, this, username.getText().toString());
+        }
     }
 
     @Override
