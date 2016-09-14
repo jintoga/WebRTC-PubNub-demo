@@ -2,6 +2,7 @@ package com.dat.android.experimentwebrtc;
 
 import org.webrtc.AudioSource;
 import org.webrtc.AudioTrack;
+import org.webrtc.CameraEnumerationAndroid;
 import org.webrtc.MediaConstraints;
 import org.webrtc.PeerConnectionFactory;
 import org.webrtc.VideoCapturer;
@@ -13,7 +14,7 @@ public class CaptureUtil {
     public static VideoSource getVideoSourceForFrontFacingCamera(
         PeerConnectionFactory peerConnectionFactory) {
         VideoCapturer videoCapturer =
-            VideoCapturerAndroid.create(VideoCapturerAndroid.getNameOfFrontFacingDevice());
+            VideoCapturerAndroid.create(CameraEnumerationAndroid.getNameOfFrontFacingDevice());
         return peerConnectionFactory.createVideoSource(videoCapturer, new MediaConstraints());
     }
 

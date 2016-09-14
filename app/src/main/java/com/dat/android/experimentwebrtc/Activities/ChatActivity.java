@@ -17,6 +17,7 @@ import me.kevingleason.pnwebrtc.PnRTCClient;
 import org.webrtc.AudioTrack;
 import org.webrtc.MediaStream;
 import org.webrtc.PeerConnectionFactory;
+import org.webrtc.RendererCommon;
 import org.webrtc.VideoRenderer;
 import org.webrtc.VideoRendererGui;
 import org.webrtc.VideoSource;
@@ -68,7 +69,7 @@ public class ChatActivity extends BasePubNubActivity {
     }
 
     public void setupWebRTC() {
-        PeerConnectionFactory.initializeAndroidGlobals(this, true, true, true, null);
+        PeerConnectionFactory.initializeAndroidGlobals(this, true, true, true);
         peerConnectionFactory = new PeerConnectionFactory();
 
         videoSource = CaptureUtil.getVideoSourceForFrontFacingCamera(peerConnectionFactory);
@@ -80,9 +81,9 @@ public class ChatActivity extends BasePubNubActivity {
 
         try {
             remoteRenderer = VideoRendererGui.create(0, 0, 100, 100,
-                VideoRendererGui.ScalingType.SCALE_ASPECT_FILL, false);
+                RendererCommon.ScalingType.SCALE_ASPECT_FILL, false);
             localRenderer = VideoRendererGui.create(0, 0, 100, 100,
-                VideoRendererGui.ScalingType.SCALE_ASPECT_FILL, true);
+                RendererCommon.ScalingType.SCALE_ASPECT_FILL, true);
         } catch (Exception e) {
             e.printStackTrace();
         }

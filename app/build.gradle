@@ -24,7 +24,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'io.pristine:libjingle:9694@aar'
-    compile 'com.pubnub:pubnub-android:3.7.4'
+    compile 'io.pristine:libjingle:11139@aar'
+    compile 'com.pubnub:pubnub-android:3.7.10'
     compile 'me.kevingleason:pnwebrtc:1.0.6@aar'
 }

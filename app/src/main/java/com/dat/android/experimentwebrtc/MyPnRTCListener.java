@@ -5,6 +5,7 @@ import android.widget.Toast;
 import me.kevingleason.pnwebrtc.PnPeer;
 import me.kevingleason.pnwebrtc.PnRTCListener;
 import org.webrtc.MediaStream;
+import org.webrtc.RendererCommon;
 import org.webrtc.VideoRenderer;
 import org.webrtc.VideoRendererGui;
 
@@ -64,9 +65,9 @@ public class MyPnRTCListener extends PnRTCListener {
                         remoteStream.videoTracks.get(0)
                             .addRenderer(new VideoRenderer(remoteRenderer));
                         VideoRendererGui.update(remoteRenderer, 0, 0, 100, 100,
-                            VideoRendererGui.ScalingType.SCALE_ASPECT_FILL, false);
+                            RendererCommon.ScalingType.SCALE_ASPECT_FILL, false);
                         VideoRendererGui.update(localRenderer, 72, 72, 25, 25,
-                            VideoRendererGui.ScalingType.SCALE_ASPECT_FIT, true);
+                            RendererCommon.ScalingType.SCALE_ASPECT_FIT, true);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
