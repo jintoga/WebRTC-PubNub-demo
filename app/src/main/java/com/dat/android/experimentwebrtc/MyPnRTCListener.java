@@ -18,6 +18,8 @@ public class MyPnRTCListener extends PnRTCListener {
     private VideoRenderer.Callbacks localRenderer;
     private VideoRenderer.Callbacks remoteRenderer;
 
+    IConnectionListener listener;
+
     public interface IConnectionListener {
         void updateConnectionStatus(String status);
 
@@ -25,10 +27,11 @@ public class MyPnRTCListener extends PnRTCListener {
     }
 
     public MyPnRTCListener(Activity activity, VideoRenderer.Callbacks local,
-        VideoRenderer.Callbacks remote) {
+        VideoRenderer.Callbacks remote, IConnectionListener listener) {
         parentActivity = activity;
         localRenderer = local;
         remoteRenderer = remote;
+        this.listener = listener;
     }
 
     @Override
@@ -46,8 +49,10 @@ public class MyPnRTCListener extends PnRTCListener {
         parentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(parentActivity, "Connected to " + userId, Toast.LENGTH_SHORT).show();
-                //listener.connected();
+                Toast.makeText(parentActivity, "onConnected: Connected to " + userId,
+                    Toast.LENGTH_SHORT).show();
+                listener.connected();
+                //((ChatActivity) parentActivity).invalidate();
             }
         });
     }
@@ -58,8 +63,8 @@ public class MyPnRTCListener extends PnRTCListener {
         parentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(parentActivity, "Connected to " + peer.getId(), Toast.LENGTH_SHORT)
-                    .show();
+                Toast.makeText(parentActivity, "onAddRemoteStream: Connected to " + peer.getId(),
+                    Toast.LENGTH_SHORT).show();
                 try {
                     if (remoteStream.videoTracks.size() > 0) {
                         remoteStream.videoTracks.get(0)

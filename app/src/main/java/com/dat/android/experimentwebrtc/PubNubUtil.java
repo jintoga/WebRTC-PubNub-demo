@@ -34,11 +34,11 @@ public class PubNubUtil {
                         if (!jsonMsg.has(username)) {
                             return;
                         }
-                        String user = jsonMsg.getString(username);
+                        String callingUser = jsonMsg.getString(username);
                         // Consider Accept/Reject call here
                         Intent intent = new Intent(context, IncomingCallActivity.class);
                         intent.putExtra(Constants.USER_NAME_KEY, username);
-                        intent.putExtra(Constants.CALL_NUMBER_KEY, user);
+                        intent.putExtra(Constants.CALL_NUMBER_KEY, callingUser);
                         context.startActivity(intent);
                     } catch (JSONException e) {
                         e.printStackTrace();

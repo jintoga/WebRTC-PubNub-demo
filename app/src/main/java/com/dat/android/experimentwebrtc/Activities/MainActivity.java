@@ -2,7 +2,6 @@ package com.dat.android.experimentwebrtc.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -11,15 +10,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.dat.android.experimentwebrtc.Constants;
-import com.dat.android.experimentwebrtc.MyPnRTCListener;
 import com.dat.android.experimentwebrtc.PubNubUtil;
 import com.dat.android.experimentwebrtc.R;
 import com.pubnub.api.Callback;
-import com.pubnub.api.Pubnub;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements MyPnRTCListener.IConnectionListener {
+public class MainActivity extends BasePubNubActivity {
 
     @Bind(R.id.username)
     protected EditText username;
@@ -27,8 +24,6 @@ public class MainActivity extends AppCompatActivity implements MyPnRTCListener.I
     protected EditText callnumber;
     @Bind(R.id.connectionStatus)
     protected TextView connectionStatus;
-
-    private Pubnub mPubNub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +66,6 @@ public class MainActivity extends AppCompatActivity implements MyPnRTCListener.I
     }
 
     @Override
-    public void updateConnectionStatus(String status) {
-        connectionStatus.setText(status);
-    }
-
-    @Override
     protected void onRestart() {
         super.onRestart();
         if (this.mPubNub == null) {
@@ -83,10 +73,5 @@ public class MainActivity extends AppCompatActivity implements MyPnRTCListener.I
         } else {
             PubNubUtil.subscribeStdBy(mPubNub, this, username.getText().toString());
         }
-    }
-
-    @Override
-    public void connected() {
-        connectionStatus.setVisibility(View.INVISIBLE);
     }
 }
